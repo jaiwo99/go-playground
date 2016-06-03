@@ -14,6 +14,8 @@ type Row struct {
 }
 func main() {
 	file := flag.String("path", "", "file path")
+	padding := flag.String("padding", "", "print padding")
+
 	flag.Parse()
 
 	if (*file == "") {
@@ -22,13 +24,18 @@ func main() {
 		os.Exit(1)
 	}
 
+	if (*padding == "") {
+		*padding = "-20";
+	}
+
+
 	csv := parse(*file)
 
 	fmt.Println("")
 	for _,element := range csv {
 
 		for _,elem := range element.Text {
-			fmt.Printf("%-20s", elem)
+			fmt.Printf("%" + *padding + "s", elem)
 		}
 		fmt.Println("")
 	}
